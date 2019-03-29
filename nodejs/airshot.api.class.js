@@ -21,9 +21,9 @@ module.exports =
 
 
             this.api = {
-                id   : 'EV79-VPVF-47DY-2907',
-                key  : 'eed1be18c15829b40cbec0d5df7a9819.8c50e3a8aed635e1fb487e7b9cc4d69c',
-                base : 'https://airshot.io/api/v1/'
+                id   : 'AP33-FGPV-63ON-5973',
+                key  : '1de580e2f6f719969f7f07524d72c297.4939418664edab84d5d13fd3aa39849b',
+                base : 'https://staging.airshot.io/api/v1/'
             };
 
         }
