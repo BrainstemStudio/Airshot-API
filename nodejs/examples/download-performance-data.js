@@ -13,34 +13,33 @@
      * Download performance from a broadcasts will retrive
      * all uploads. We must supply a Broadcast_ID which can be 
      * retrived from the broadcast->list endpoint. We can optional
-     * also provide a upload_ID to retrive a specific upload.
+     * also provide a sheet_ID to retrive a specific upload.
      * 
      * Accepted paramaters:
      * broadcast_ID {int} required, a unqiue ID of a broadcast, can be retrived from broadcast->list endpoint
-     * upload_ID    {int} optional, a unique ID returned when uploading data.
+     * sheet_ID    {int} optional, a unique ID returned when uploading data.
      * 
      * A success returns the following:
      * broadcast_ID {int}, the broadcast this data was download from.
-     * uploads    {array}, an array of uploads with an Upload_ID as the key.
+     * uploads    {array}, an array of uploads with an sheet_ID as the key.
      * 
      * Row data will be assigned a data hash key which you can use to edit
      * a specific row.
      * 
      * You can also edit and entire data set and upload the whole
-     * data again to the upload_ID.
+     * data again to the sheet_ID.
      * 
      * Tip:
      * You can get the upload ID by hovering over the upload icon
      * under performance.
      */
     
-    let upload_ID = 1;
+    let sheet_ID = 1;
 
     async function downloadPerformance(){
 
         let response = await airshot.process('performance','download','post',{
-            broadcast_ID : 1,
-            upload_ID    : upload_ID // Remove this if you want all uploads */
+            broadcast_ID : 45,
         });
 
 
@@ -57,7 +56,7 @@
 
     }
 
-    //downloadPerformance();
+    downloadPerformance();
 
 
 
@@ -68,7 +67,7 @@
     /**
      * If we need to replace the upload with completely new
      * data. We can do this by repeating the upload example.
-     * except this time we suppliy an upload_ID. This 
+     * except this time we suppliy an sheet_ID. This 
      * will clear all data in the upload and replace it 
      * with new data. The data must still follow a common
      * structure.
@@ -95,7 +94,7 @@
             broadcast_ID : 1,
             kpiIndicator : 'Sales',
             data         : JSON.stringify(data),
-            upload_ID    : upload_ID, // Must be included to overwrite
+            sheet_ID    : sheet_ID, // Must be included to overwrite
             name         : 'API Upload 1 (Overwrite)',
         });
 
@@ -115,7 +114,7 @@
     async function deletePerformance(){
 
         let response = await airshot.process('performance','remove','post',{
-            upload_ID : upload_ID
+            sheet_ID : sheet_ID
         });
 
         console.log(response);

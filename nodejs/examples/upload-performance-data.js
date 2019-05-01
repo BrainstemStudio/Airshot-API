@@ -39,6 +39,8 @@
 
 
         /* Create some rows of data */
+
+
         data[1] = ['2019-03-01','John Smith','johnsmith@example.com',10000];
         data[2] = ['2019-03-01','Sally Doe','sallydoe@example.com',5000];
         data[3] = ['2019-03-02','Sally Doe','sallydoe@example.com',7500];
@@ -52,7 +54,7 @@
          * 
          * broadcast_ID {int} (required)
          * kpiIndicator {string} (required)
-         * data         {json} (required)
+         * data         {array} (required)
          * name         {string} (optional, defaults to todays date)
          * 
          */
@@ -70,35 +72,37 @@
         let response = await airshot.process('performance','upload','post',{
             broadcast_ID : 45,
             kpiIndicator : 'Sales',
-            data         : JSON.stringify(data),
+            data         : data,
             name         : 'API Upload 1',
         });
 
 
+        console.log(response);
+        return;
+
         /**
-         * If we planning on editing this data later we can store the row hashes that
+         * If we planning on editing this data later we can store the row numbers that
          * Airshot returns when the upload was successful. We can then store these
-         * hashes with our localdatabse and use the performance->edit enpoint to 
+         * numbers with our localdatabse and use the performance->edit enpoint to 
          * modify the specific row. If we are planning on deleting or overwritting
-         * the entire upload, we should also store the upload_ID.
+         * the entire upload, we should also store the sheet_ID.
          * 
          * A success returns the following:
          * broadcast_ID {int}, the broadcast this data was uploaded to.
-         * upload_ID    {int}, the unique ID that this upload was store as.
-         * dataPoints   {array}, an array of data hashes that are unique to each "row" we uploaded.
+         * sheet_ID    {int}, the unique ID that this upload was stored as.
+         * dataPoints   {array}, an array of numbers that relate to the row.
          */
 
-        
+    
         /**
-         * Optionally store upload_ID for deletion an overwrite calls.
+         * Optionally store sheet_ID for deletion an overwrite calls.
          */
 
-
-        let upload_ID  = response['data']['upload_ID'];
+        let sheet_ID  = response['data']['sheet_ID'];
 
 
         /**
-         * Optional Store the row hashes to edit specific rows later.
+         * Optional Store the row numbers and sheet_ID to edit specific rows later.
          */
 
         let dataPoints = response['data']['dataPoints'];
@@ -108,8 +112,8 @@
 
             if (row != 'Row 0'){
 
-                /* Store the hash locally i.e dataPoints[row] */
-                //console.log(dataPoints[row]);
+                /* Store the number locally i.e dataPoints[row] */
+                console.log(sheet_ID,dataPoints[row]);
 
             }
 

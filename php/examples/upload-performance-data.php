@@ -53,7 +53,7 @@
      * 
      * broadcast_ID {int} (required)
      * kpiIndicator {string} (required)
-     * data         {json} (required)
+     * data         {array} (required)
      * name         {string} (optional, defaults to todays date)
      * 
      */
@@ -71,58 +71,50 @@
     $newUpload = $airshot->process('performance','upload','post',array(
         'broadcast_ID' => 1,
         'kpiIndicator' => 'Sales',
-        'data'         => json_encode($data),
+        'data'         => $data,
         'name'         => 'API Upload 1',
     ));
 
 
-    /* Check for errors */
-    if ($newUpload['status'] == 'error'):
 
-        print "An Error Occurred.";
-        print $newUpload['message'];
-        exit();
-
-    endif;
         
 
     /**
-     * If we planning on editing this data later we can store the row hashes that
+     * If we planning on editing this data later we can store the row numbers that
      * Airshot returns when the upload was successful. We can then store these
-     * hashes with our localdatabse and use the performance->edit enpoint to 
+     * numbers with our localdatabse and use the performance->edit enpoint to 
      * modify the specific row. If we are planning on deleting or overwritting
-     * the entire upload, we should also store the upload_ID.
+     * the entire upload, we should also store the sheet_ID.
      * 
      * A success returns the following:
      * broadcast_ID {int}, the broadcast this data was uploaded to.
-     * upload_ID    {int}, the unique ID that this upload was store as.
-     * dataPoints   {array}, an array of data hashes that are unique to each "row" we uploaded.
+     * sheet_ID    {int}, the unique ID that this upload was stored as.
+     * dataPoints   {array}, an array of numbers that relate to the row.
      */
 
     
      /**
-      * Optionally store upload_ID for deletion an overwrite calls.
+      * Optionally store sheet_ID for deletion an overwrite calls.
       */
 
 
-     $upload_ID  = $newUpload['data']['upload_ID'];
+     $sheet_ID  = $newUpload['data']['sheet_ID'];
 
 
      /**
-      * Optional Store the row hashes to edit specific rows later.
+      * Optional Store the row numbers and sheet_ID to edit specific rows later.
       */
 
      $dataPoints = $newUpload['data']['dataPoints'];
 
 
-     foreach($dataPoints as $row => $hash){
+     foreach($dataPoints as $row => $number){
 
         /* Ignore "Row 0" as this is just the header */
         if ($row == 'Row 0'){
             continue;
         }
 
-        /* Store the hash locally */
         
 
      }

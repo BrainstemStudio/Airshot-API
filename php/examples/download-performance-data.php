@@ -15,33 +15,33 @@
      * Download performance from a broadcasts will retrive
      * all uploads. We must supply a Broadcast_ID which can be 
      * retrived from the broadcast->list endpoint. We can optional
-     * also provide a upload_ID to retrive a specific upload.
+     * also provide a sheet_ID to retrive a specific upload.
      * 
      * Accepted paramaters:
      * broadcast_ID {int} required, a unqiue ID of a broadcast, can be retrived from broadcast->list endpoint
-     * upload_ID    {int} optional, a unique ID returned when uploading data.
+     * sheet_ID    {int} optional, a unique ID returned when uploading data.
      * 
      * A success returns the following:
      * broadcast_ID {int}, the broadcast this data was download from.
-     * uploads    {array}, an array of uploads with an Upload_ID as the key.
+     * uploads    {array}, an array of uploads with an sheet_ID as the key.
      * 
      * Row data will be assigned a data hash key which you can use to edit
      * a specific row.
      * 
      * You can also edit and entire data set and upload the whole
-     * data again to the upload_ID.
+     * data again to the sheet_ID.
      * 
      * Tip:
      * You can get the upload ID by hovering over the upload icon
      * under performance.
      */
     
-    $upload_ID = 1;
+    $sheet_ID = 1;
 
     /* Download */
     $download = $airshot->process('performance','download','post',array(
         'broadcast_ID' => 1,
-        'upload_ID'    => $upload_ID // Remove this if you want all uploads */
+        'sheet_ID'    => $sheet_ID // Remove this if you want all uploads */
     ));
 
 
@@ -62,7 +62,7 @@
     /**
      * If we need to replace the upload with completely new
      * data. We can do this by repeating the upload example.
-     * except this time we suppliy an upload_ID. This 
+     * except this time we suppliy an sheet_ID. This 
      * will clear all data in the upload and replace it 
      * with new data. The data must still follow a common
      * structure.
@@ -83,7 +83,7 @@
 
     $editRow = $airshot->process('performance','upload','post',array(
         'broadcast_ID' => 1,
-        'upload_ID'    => $upload_ID,
+        'sheet_ID'    => $sheet_ID,
         'kpiIndicator' => 'Sales',
         'data'         => json_encode($data),
         'name'         => 'API Upload 1 (Overwrite)',
@@ -97,7 +97,7 @@
 
 
     $airshot->process('performance','remove','post',array(
-        'upload_ID'    => $upload_ID
+        'sheet_ID'    => $sheet_ID
      ));
 
 ?>

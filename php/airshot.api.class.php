@@ -12,12 +12,15 @@
 
         /**
          * Set the appID, appKey and the apiBase
-         */
+         
 
         private $appID     = 'AP33-FGPV-63ON-5973';
         private $appKey    = '1de580e2f6f719969f7f07524d72c297.4939418664edab84d5d13fd3aa39849b';
-        private $apiBase   = 'https://staging.airshot.io/api/v1/';
+        private $apiBase   = 'https://staging.airshot.io/api/v1/';*/
 
+        private $appID     = 'EV11-IQWZ-84BA-8805';
+        private $appKey    = '867a07c27c3f61ac9f175360d884b216.118b0fdf8f4492392291d269ffc37954';
+        private $apiBase   = 'http://localhost/api/v1/';
 
         /*======================================================
         // PROCESS TO API
@@ -57,10 +60,22 @@
             curl_setopt($ch, CURLOPT_TIMEOUT, 360); 
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
 
-            $response = curl_exec($ch); 
+            $body     = curl_exec($ch); 
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE); 
 
             curl_close($ch); 
+
+            $response = json_decode($body,1);
+
+            
+            /* Check for errors */
+            if ($response['status'] == 'error'):
+
+                print "An error occurred on ".$this->apiBase.$endpont.'/'.$method.".<br />";
+                print $response['message'];
+                exit();
+
+            endif;
 
             return json_decode($response,1);
 

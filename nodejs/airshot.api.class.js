@@ -82,7 +82,15 @@ module.exports =
 
                 fetch(url, options)
                     .then(response => response.json())
-                    .then(json => resolve(json))
+                    .then(json => {
+
+                        if (json.status != 'success'){
+                            reject(json.message);
+                        }
+                        else{
+                            resolve(json)
+                        }
+                    })
                     .catch(error => {
                         console.error('Error:', error);
                         reject(error);
