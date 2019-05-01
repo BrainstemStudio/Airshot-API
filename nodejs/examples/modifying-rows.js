@@ -22,7 +22,7 @@
         /**
          * If we need to insert a row to a specific upload. We
          * can do this by suppling an sheet_ID and data as 
-         * json string. Whenever processing data it match
+         * an object. Whenever processing data it must
          * match a common structure to a previous upload. In
          * inserts we cannot append columns like we can with uploads.
          * 
