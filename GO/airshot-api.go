@@ -78,8 +78,8 @@ func broadcastListExample(airshot AirshotClient) {
 func main() {
 
 	airshot := CreateAirshotApi(AirshotConfig{
-		ID:   "AP33-FGPV-63ON-5973",
-		key:  "1de580e2f6f719969f7f07524d72c297.4939418664edab84d5d13fd3aa39849b",
+		ID:   "<API ACCOUNT ID>",
+		key:  "<API ACCOUNT KEY>",
 		base: "https://staging.airshot.io/api/v1/",
 	})
 
